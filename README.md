@@ -1,12 +1,11 @@
-# POS Cashier System — Phase 1
+# POS System
 
-A beginner-friendly Qt 6 Widgets desktop POS dashboard for macOS.
+Desktop POS for macOS built with C++20, Qt 6 Widgets, Qt SQL/SQLite, and CMake.
 
 ## Requirements
 
 - CMake 3.21+
 - C++20 compiler (Xcode command line tools)
-- Existing Qt 6.8.3 at `~/.local/share/system-monitor-qt/6.8.3/macos`
 
 No Qt installation is required or performed by this project.
 
@@ -28,6 +27,39 @@ cmake --build build/debug
 open build/debug/pos_cashier_system.app
 ```
 
+## Clean build files
+
+```bash
+rm -rf build
+```
+
+## First login
+
+The first launch creates a local SQLite database and one administrator account:
+
+```text
+Username: admin
+Password: 1
+```
+
+This weak password is for local development only; change it before deployment. Passwords are salted and iteratively SHA-256 hashed; they are never stored as plaintext.
+
+## Included workflows
+
+- Role-aware sign-in (admin/cashier)
+- Product creation, search/SKU lookup, soft delete, and stock adjustment history
+- Cash cart checkout, tax, discount-ready totals, non-negative stock enforcement, atomic sale creation, and refunds
+- Dashboard, sales ledger, CSV sales export, store settings, database backup, and receipt PDF generation
+- Core tests covering total calculation, checkout stock changes, and refunds
+
 ## Database
 
-On first launch the app creates a SQLite database in the standard macOS app-local data directory. The `products` table stores USD prices as integer `price_cents`, preventing floating-point currency errors. Products are soft-deleted by setting `is_active` to `0`; active-product queries should include `WHERE is_active = 1`.
+In this CLion project the app database is `database/pos_cashier.sqlite`. The schema has migrations, foreign keys, constraints, and indexes. Products are soft-deleted with `is_active = 0`; sales are retained and refunds transition their status rather than deleting history.
+
+Generated receipt PDFs are saved in `database/receipts/`.
+
+## Tests
+
+```bash
+ctest --test-dir build/debug --output-on-failure
+```
