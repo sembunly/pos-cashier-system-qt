@@ -20,6 +20,7 @@ private slots:
     void deleteProduct();
     void adjustInventory();
     void refundSale();
+    void printReceipt();
     void exportReport();
     void saveSettings();
     void createUser();
