@@ -9,12 +9,13 @@
 #include <QDialogButtonBox>
 #include <QFormLayout>
 #include <QLineEdit>
+#include <QPushButton>
 
 int main(int argc, char *argv[])
 {
     QApplication application(argc, argv);
-    application.setApplicationName("POS Cashier System");
-    application.setOrganizationName("POS Cashier");
+    application.setApplicationName("POS System");
+    application.setOrganizationName("POS System");
 
     QFile styleFile(":/assets/styles/dark.qss");
     if (styleFile.open(QFile::ReadOnly | QFile::Text))
@@ -28,7 +29,7 @@ int main(int argc, char *argv[])
     }
     AuthService::ensureDefaultAdmin();
     QDialog login;
-    login.setWindowTitle("Sign in — Nova POS"); login.setMinimumWidth(360);
+    login.setWindowTitle("Sign in — POS System"); login.setMinimumWidth(360);
     auto *form = new QFormLayout(&login); auto *username = new QLineEdit("admin"); auto *password = new QLineEdit; password->setEchoMode(QLineEdit::Password);
     form->addRow("Username", username); form->addRow("Password", password); auto *buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel); buttons->button(QDialogButtonBox::Ok)->setText("Sign in"); form->addRow(buttons);
     QObject::connect(buttons, &QDialogButtonBox::accepted, &login, &QDialog::accept); QObject::connect(buttons, &QDialogButtonBox::rejected, &login, &QDialog::reject);
