@@ -11,6 +11,8 @@ QMainWindow, QWidget { background: #111827; color: #e5e7eb; }
 #dateLabel { color: #94a3b8; font-size: 13px; }
 #primaryButton { background: #2563eb; border: none; border-radius: 8px; color: white; font-size: 14px; font-weight: 700; padding: 12px 20px; }
 #primaryButton:hover { background: #3b82f6; }
+#dangerButton { background: #b91c1c; border: none; border-radius: 7px; color: white; font-weight: 700; padding: 9px 13px; }
+#dangerButton:hover { background: #dc2626; }
 #salesCard, #activityPanel { background: #172238; border: 1px solid #293650; border-radius: 12px; }
 #salesCard { min-height: 142px; }
 #cardTitle { background: transparent; color: #94a3b8; font-size: 11px; font-weight: 700; }
@@ -18,3 +20,10 @@ QMainWindow, QWidget { background: #111827; color: #e5e7eb; }
 #cardCaption { background: transparent; color: #67e8a6; font-size: 12px; }
 #sectionTitle { background: transparent; color: #f8fafc; font-size: 17px; font-weight: 700; }
 #emptyText { background: transparent; color: #7d8aa0; font-size: 14px; line-height: 1.8; }
+QLineEdit, QTableWidget { background: #172238; border: 1px solid #334155; border-radius: 7px; color: #e5e7eb; padding: 8px; }
+QTableWidget { gridline-color: #293650; selection-background-color: #1d4ed8; }
+QHeaderView::section { background: #0f172a; border: none; color: #94a3b8; font-weight: bold; padding: 9px; }
+QPushButton { background: #26344c; border: none; border-radius: 7px; color: #e5e7eb; padding: 9px 13px; }
+QPushButton:hover { background: #334155; }
+#dashboardStats { background: #172238; border: 1px solid #293650; border-radius: 12px; color: #f8fafc; font-size: 22px; font-weight: 600; padding: 28px; }
+#cartTotal { color: #f8fafc; font-size: 17px; font-weight: bold; padding: 12px; }
