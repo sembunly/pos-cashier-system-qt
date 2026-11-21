@@ -1,0 +1,20 @@
+* { font-family: "Helvetica Neue", sans-serif; }
+QMainWindow, QWidget { background: #111827; color: #e5e7eb; }
+#sidebar { background: #0b1220; border-right: 1px solid #253047; }
+#brand { color: #f9fafb; font-size: 21px; font-weight: 800; letter-spacing: 1px; background: transparent; }
+#brandSubtitle { color: #77839a; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; background: transparent; }
+#navButton { background: transparent; color: #a8b1c2; border: none; border-radius: 8px; font-size: 14px; padding: 12px 14px; text-align: left; }
+#navButton:hover { background: #172238; color: #ffffff; }
+#navButton:checked { background: #1d4ed8; color: white; font-weight: 700; }
+#userInfo { background: #111c2f; border-radius: 8px; color: #cbd5e1; font-size: 12px; line-height: 1.6; padding: 13px; }
+#pageTitle { color: #f8fafc; font-size: 28px; font-weight: 700; }
+#dateLabel { color: #94a3b8; font-size: 13px; }
+#primaryButton { background: #2563eb; border: none; border-radius: 8px; color: white; font-size: 14px; font-weight: 700; padding: 12px 20px; }
+#primaryButton:hover { background: #3b82f6; }
+#salesCard, #activityPanel { background: #172238; border: 1px solid #293650; border-radius: 12px; }
+#salesCard { min-height: 142px; }
+#cardTitle { background: transparent; color: #94a3b8; font-size: 11px; font-weight: 700; }
+#cardValue { background: transparent; color: #f8fafc; font-size: 27px; font-weight: 700; }
+#cardCaption { background: transparent; color: #67e8a6; font-size: 12px; }
+#sectionTitle { background: transparent; color: #f8fafc; font-size: 17px; font-weight: 700; }
+#emptyText { background: transparent; color: #7d8aa0; font-size: 14px; line-height: 1.8; }

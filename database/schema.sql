@@ -1,0 +1,14 @@
+PRAGMA foreign_keys = ON;
+CREATE TABLE IF NOT EXISTS schema_migrations (version INTEGER PRIMARY KEY, applied_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+INSERT OR IGNORE INTO schema_migrations(version) VALUES (1);
+CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT NOT NULL UNIQUE, password_hash TEXT NOT NULL, salt TEXT NOT NULL, role TEXT NOT NULL CHECK(role IN ('admin','cashier')), is_active INTEGER NOT NULL DEFAULT 1 CHECK(is_active IN(0,1)), created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE, is_active INTEGER NOT NULL DEFAULT 1 CHECK(is_active IN(0,1)));
+CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, name TEXT NOT NULL, sku TEXT NOT NULL UNIQUE, category_id INTEGER REFERENCES categories(id), price_cents INTEGER NOT NULL CHECK(price_cents>=0), stock_quantity INTEGER NOT NULL DEFAULT 0 CHECK(stock_quantity>=0), low_stock_threshold INTEGER NOT NULL DEFAULT 5 CHECK(low_stock_threshold>=0), is_active INTEGER NOT NULL DEFAULT 1 CHECK(is_active IN(0,1)), created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE INDEX IF NOT EXISTS idx_products_active_sku ON products(is_active, sku);
+CREATE TABLE IF NOT EXISTS inventory_transactions (id INTEGER PRIMARY KEY, product_id INTEGER NOT NULL REFERENCES products(id), delta INTEGER NOT NULL, reason TEXT NOT NULL, user_id INTEGER REFERENCES users(id), created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS sales (id INTEGER PRIMARY KEY, receipt_number TEXT NOT NULL UNIQUE, user_id INTEGER NOT NULL REFERENCES users(id), subtotal_cents INTEGER NOT NULL, discount_cents INTEGER NOT NULL DEFAULT 0, tax_cents INTEGER NOT NULL DEFAULT 0, total_cents INTEGER NOT NULL, paid_cents INTEGER NOT NULL, change_cents INTEGER NOT NULL, status TEXT NOT NULL DEFAULT 'completed' CHECK(status IN ('completed','refunded')), created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, refunded_at TEXT);
+CREATE INDEX IF NOT EXISTS idx_sales_created ON sales(created_at, status);
+CREATE TABLE IF NOT EXISTS sale_items (id INTEGER PRIMARY KEY, sale_id INTEGER NOT NULL REFERENCES sales(id), product_id INTEGER NOT NULL REFERENCES products(id), product_name TEXT NOT NULL, sku TEXT NOT NULL, unit_price_cents INTEGER NOT NULL, quantity INTEGER NOT NULL CHECK(quantity>0), discount_cents INTEGER NOT NULL DEFAULT 0, line_total_cents INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+INSERT OR IGNORE INTO settings(key,value) VALUES ('store_name','My Store');
+INSERT OR IGNORE INTO settings(key,value) VALUES ('tax_basis_points','825');
