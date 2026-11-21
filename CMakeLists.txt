@@ -33,6 +33,7 @@ qt_add_executable(pos_cashier_system
 
 target_include_directories(pos_cashier_system PRIVATE include)
 target_link_libraries(pos_cashier_system PRIVATE Qt6::Core Qt6::Widgets Qt6::Sql Qt6::PrintSupport)
+target_compile_definitions(pos_cashier_system PRIVATE POS_PROJECT_DATABASE_DIR="${CMAKE_SOURCE_DIR}/database")
 
 qt_add_resources(pos_cashier_system "app_resources"
     PREFIX "/"
